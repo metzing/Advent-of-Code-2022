@@ -1,12 +1,13 @@
-max = 0
-sum = 0
+sums = []
+aggr = 0
 
 for trimmed in (line.strip() for line in open('Day01.txt')):
     if len(trimmed) == 0:
-        if (max < sum):
-            max = sum
-        sum = 0
+        sums.append(aggr)
+        aggr = 0
     else:
-        sum += int(trimmed)
+        aggr += int(trimmed)
 
-print(max)
+sums.sort(reverse=True)
+
+print(sum([sums[0], sums[1], sums[2]]))
