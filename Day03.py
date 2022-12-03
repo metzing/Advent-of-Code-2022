@@ -1,16 +1,20 @@
 def valueOf(char: str) -> int:
     if char.islower():
-        return ord(char) - 96 # ord('a') == 97
+        return ord(char) - 96  # ord('a') == 97
     else:
         return valueOf(char.lower()) + 26
 
+
+groupSize = 3
+
+sacks = list(line.strip() for line in open('Day03.txt'))
 aggr = 0
 
-for sack in (line.strip() for line in open('Day03.txt')):
-    left = sack[0 : (int(len(sack) / 2))]
-    right = sack[int(len(sack) / 2) : len(sack)]
+for groupIndex in range(int(len(sacks) / groupSize)):
 
-    found = list(l for l in left if l in right)[0]
+    [first, second, third] = sacks[groupIndex * groupSize: groupIndex * groupSize + groupSize]
+
+    found = list(i for i in first if i in second and i in third)[0]
 
     aggr += valueOf(found)
 
