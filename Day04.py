@@ -7,7 +7,7 @@ for stripped in (line.strip() for line in open('Day04.txt')):
     left = range(left_start, left_end + 1)
     right = range(right_start, right_end + 1)
 
-    if all(l in right for l in left) or all(r in left for r in right):
+    if any(l in right for l in left) or any(r in left for r in right):
         count += 1
 
 print(count)
