@@ -1,8 +1,8 @@
-def valueOf(char: str) -> int:
+def value_of(char: str) -> int:
     if char.islower():
         return ord(char) - 96  # ord('a') == 97
     else:
-        return valueOf(char.lower()) + 26
+        return value_of(char.lower()) + 26
 
 
 groupSize = 3
@@ -16,6 +16,6 @@ for groupIndex in range(int(len(sacks) / groupSize)):
 
     found = list(i for i in first if i in second and i in third)[0]
 
-    aggr += valueOf(found)
+    aggr += value_of(found)
 
 print(aggr)
