@@ -1,8 +1,9 @@
+import re
+
 count = 0
 
 for stripped in (line.strip() for line in open('Day04.txt')):
-    [left_start, left_end, right_start, right_end] = \
-        [int(boundary) for assignment in stripped.split(',') for boundary in assignment.split('-')]
+    [left_start, left_end, right_start, right_end] = [int(boundary) for boundary in re.split(',|-', stripped)]
 
     left = range(left_start, left_end + 1)
     right = range(right_start, right_end + 1)
