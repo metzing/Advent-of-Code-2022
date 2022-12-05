@@ -22,9 +22,11 @@ for line in originalStackLines[1:]:
             stacks[i].append(line[charIndex])
 
 for instruction in instructionLines:
+
     [numberOfCrates, fromStack, toStack] = (int(num) for num in re.findall(r'\d+', instruction))
 
-    for _ in range(numberOfCrates):
-        stacks[toStack - 1].append(stacks[fromStack - 1].pop())
+    moving = stacks[fromStack - 1][-numberOfCrates:]
+    stacks[fromStack - 1] = stacks[fromStack - 1][:-numberOfCrates]
+    stacks[toStack - 1].extend(moving)
 
 print(''.join(stack.pop() for stack in stacks))
