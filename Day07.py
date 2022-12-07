@@ -67,4 +67,6 @@ def gather_dir_sizes(dir):
 
 gather_dir_sizes(filesystem)
 
-print(sum(size for size in dirSizes.values() if size <= 100000))
+min_to_delete = (30000000 + filesystem.size) - 70000000
+
+print(min(size for size in dirSizes.values() if size >= min_to_delete))
