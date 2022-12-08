@@ -5,19 +5,35 @@ for trimmed in (line.strip() for line in open('Day08.txt')):
     for height in (int(char) for char in trimmed):
         rows[-1].append(height)
 
-internal_visible = 0
+def count_lt(than, list, reverse):
+    if(reverse):
+        list.reverse()
+
+    if len(list) == 0:
+        return 0
+    
+    count = 0
+
+    for i in list:
+        if (i < than):
+            count += 1
+        else:
+            count += 1
+            return count
+    
+    return count
+
+max_score = 0
 
 for i in range(1, len(rows) - 1):
     for j in range(1, len(rows[i]) - 1):
         current = rows[i][j]
+        
+        left = count_lt(current, rows[i][0:j], True)
+        right = count_lt(current, rows[i][j + 1:len(rows[i])], False)
+        top = count_lt(current, [rows[k][j] for k in range(0, i)], True)
+        bottom = count_lt(current, [rows[k][j] for k in range(i + 1, len(rows))], False)
+        
+        max_score = max(max_score, left * right * top * bottom)
 
-        left = rows[i][0:j]
-        right = rows[i][j + 1:len(rows[i])]
-        top = [rows[k][j] for k in range(0, i)]
-        bottom = [rows[k][j] for k in range(i+1, len(rows))]
-        if max(left) < current or max(right) < current or max(top) < current or max(bottom) < current:
-            internal_visible += 1
-
-externally_visible = (len(rows) + len(rows[i])) * 2 - 4
-
-print(internal_visible + externally_visible)
+print(max_score)
