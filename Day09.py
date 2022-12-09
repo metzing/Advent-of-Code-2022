@@ -5,8 +5,7 @@ steps = {
     'R': (0, 1)
 }
 
-H = [0, 0]
-T = [0, 0]
+knots = [[0, 0] for _ in range(0, 10)]
 
 tail_positions = set()
 
@@ -35,11 +34,13 @@ for move in (line.strip() for line in open("Day09.txt")):
     [direction, length] = move.split(' ')
     step = steps[direction]
 
-    for i in range(0, int(length)):
+    for _ in range(0, int(length)):
 
-        H = [H[0] + step[0], H[1] + step[1]]
-        T = [int(c) for c in follow(T, H)]
+        knots[0] = [knots[0][0] + step[0], knots[0][1] + step[1]]
 
-        tail_positions.add((T[0], T[1]))
+        for i in range(1, 10):
+            knots[i] = follow(knots[i], knots[i - 1])
+
+        tail_positions.add((int(knots[-1][0]), int(knots[-1][1])))
     
 print(len(tail_positions))
