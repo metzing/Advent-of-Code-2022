@@ -13,7 +13,7 @@ line_out = ''
 output = []
 
 def near(cycle, x):
-    return abs(((cycle - 1) % 40) - (x % 40)) <= 1
+    return abs((cycle % 40) - ((x + 1) % 40)) <= 1
 
 while len(lines) > 0 or offset != 0:
 
@@ -28,7 +28,7 @@ while len(lines) > 0 or offset != 0:
 
     
     print(f'During {cycle} cursor ')
-    print(''.join(['#' if near(i, x) else '.' for i in range(0,40)]))
+    print(''.join(['#' if near(i, x) else '.' for i in range(1,41)]))
 
     if near(cycle, x):
         line_out += '#'
