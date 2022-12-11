@@ -1,7 +1,9 @@
+from functools import reduce
 import re
-from math import floor 
+from math import floor, lcm
 
 monkeys = []
+monkey_lcm = 1
 
 class Monkey:
     def __init__(self, lines):
@@ -18,7 +20,7 @@ class Monkey:
             self.inspect_count += 1
             item = self.items.pop(0)
 
-            item = floor(self.apply_operation(item) / 3)
+            item = self.apply_operation(item) % monkey_lcm
 
             monkeys[self.true_recipient if item % self.divisor == 0 else \
                 self.false_recipient].items.append(item)
@@ -46,8 +48,9 @@ for trimmed in (line.strip() for line in open('Day11.txt')):
     else:
         monkey_lines.append(trimmed)
 
+monkey_lcm = reduce(lambda aggr, monkey: lcm(aggr, monkey.divisor), monkeys, monkey_lcm)
 
-for _ in range(20):
+for _ in range(10000):
     for monkey in monkeys:
         monkey.on_round()
 
