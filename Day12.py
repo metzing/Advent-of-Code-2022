@@ -22,7 +22,7 @@ def walk(from_height, x, y, depth):
     try:
         to_height = heights[x][y]
 
-        if from_height + 1 >= to_height and \
+        if from_height - 1 <= to_height and \
             ((x, y) not in min_depths.keys() or min_depths[(x, y)] > depth):
 
             min_depths[(x, y)] = depth
@@ -35,6 +35,9 @@ def walk(from_height, x, y, depth):
     except:
         pass
 
-walk(0, start[0], start[1], 0)
+walk(0, end[0], end[1], 0)
 
-print(min_depths[end])
+a_depths = [min_depths[(x, y)] for x in range(len(heights)) \
+    for y in range(len(heights[0])) if heights[x][y] == 1 and (x, y) in min_depths.keys()]
+
+print(min(a_depths))
